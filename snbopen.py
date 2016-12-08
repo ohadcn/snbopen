@@ -34,7 +34,10 @@ def addImage(snbFile,canvas,image,rels,element):
 		imgStr = decompress(imgStr)
 		width = ord(imgStr[5]) * 256 + ord(imgStr[4])
 		height = ord(imgStr[9]) * 256 + ord(imgStr[8])
-		img = Image.frombytes("RGBA",(width,height),imgStr[52:])
+		try:
+			img = Image.frombytes("RGBA",(width,height),imgStr[52:])
+		except:
+			img = Image.fromstring("RGBA",(width,height),imgStr[52:])
 		canvas.drawInlineImage(alpha_to_color(img),0,0,595.27,841.89)
 	else:
 		style = imagePoss(element.getElementsByTagName("v:shape")[0].getAttribute("style"))
