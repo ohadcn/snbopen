@@ -4,7 +4,7 @@
 from zipfile import ZipFile
 from xml.dom.minidom import parseString
 from zlib import decompress
-import Image
+from PIL import Image
 from os import system,sep
 from sys import argv
 from reportlab.pdfgen import canvas
