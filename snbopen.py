@@ -5,7 +5,7 @@ from zipfile import ZipFile
 from xml.dom.minidom import parseString
 from zlib import decompress
 from PIL import Image
-from os import system, sep
+from os import system, sep, listdir
 from sys import argv
 from reportlab.pdfgen import canvas
 from io import BytesIO
@@ -150,7 +150,10 @@ def snbToPdf(snbname, pdfname=None):
 
 
 if len(argv) == 1:
-    print gettempdir()
+    # If no arguments are provided, simply convert ALL SNB-files in the current script-directory to PDF
+    for snbFile in listdir("."):
+            if snbFile.endswith(".snb"):
+                snbToPdf(snbFile, snbFile.replace(".snb", ".pdf"))
 elif len(argv) == 2:
     pdfFileName = gettempdir() + sep + sub('.*' + sep, "", argv[1]).replace(".snb", ".pdf")
     snbToPdf(argv[1], pdfFileName)
